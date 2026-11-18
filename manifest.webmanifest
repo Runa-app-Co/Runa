@@ -1,0 +1,16 @@
+{
+  "name": "RUNA · Saberes vivos de Colombia",
+  "short_name": "RUNA",
+  "description": "Reserva experiencias auténticas y culturales con anfitriones locales de Colombia.",
+  "lang": "es-CO",
+  "start_url": "./index.html#/explorar",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#DEDBCC",
+  "theme_color": "#DEDBCC",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

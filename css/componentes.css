@@ -1,0 +1,657 @@
+/* =========================================================
+   RUNA · Componentes reutilizables
+   (botones, píldoras, etiquetas, barra inferior, FAB, aviso)
+   Cada bloque equivale a un futuro componente de React Native.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   Barra de navegación inferior flotante
+   --------------------------------------------------------- */
+.nav-inferior {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--zona-inferior) + 14px);
+  z-index: 55;
+  width: calc(100% - 62px);
+  max-width: 328px;
+  height: var(--alto-nav);
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  padding: 0 var(--e-2);
+  background: var(--c-bosque);
+  border-radius: 36px;
+  box-shadow: var(--sombra-nav);
+  transition: transform var(--dur-media) var(--ease-app), opacity var(--dur-media);
+}
+
+/* Se esconde en pantallas como el chat */
+.nav-inferior.esta-oculta {
+  transform: translate(-50%, 140%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nav-inferior__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 100%;
+  color: var(--c-base);
+  font-size: var(--t-sm);
+  font-weight: 500;
+  transition: color var(--dur-rapida);
+}
+
+.nav-inferior__icono {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  transition: transform var(--dur-media) var(--ease-app);
+}
+
+.nav-inferior__icono svg {
+  width: 28px;
+  height: 28px;
+}
+
+.nav-inferior__item.es-activo {
+  color: var(--c-terracota);
+}
+
+.nav-inferior__item.es-activo .nav-inferior__icono {
+  transform: translateY(-2px) scale(1.08);
+}
+
+/* Pequeño rebote al tocar */
+.nav-inferior__item:active .nav-inferior__icono {
+  transform: scale(0.88);
+}
+
+.contador {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  display: grid;
+  place-items: center;
+  background: var(--c-terracota);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: var(--r-full);
+  border: 2px solid var(--c-bosque);
+}
+
+/* ---------------------------------------------------------
+   Botón flotante del mapa (FAB)
+   --------------------------------------------------------- */
+.fab {
+  position: absolute;
+  right: 28px;
+  bottom: calc(var(--zona-inferior) + var(--alto-nav) + 34px);
+  z-index: 54;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--r-full);
+  display: grid;
+  place-items: center;
+  background: var(--c-bosque);
+  color: var(--c-base);
+  box-shadow: 0 8px 20px rgba(18, 44, 31, 0.3);
+  transition: transform var(--dur-media) var(--ease-app), opacity var(--dur-media);
+}
+
+.fab svg {
+  width: 28px;
+  height: 28px;
+}
+
+.fab:active {
+  transform: scale(0.9);
+}
+
+.fab.esta-oculto {
+  transform: scale(0.4);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* En el mapa el ícono del FAB se vuelve terracota */
+.fab.es-activo {
+  color: var(--c-terracota);
+}
+
+/* ---------------------------------------------------------
+   Botones
+   --------------------------------------------------------- */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--e-2);
+  height: 44px;
+  padding: 0 var(--e-5);
+  border-radius: var(--r-lg);
+  font-weight: 600;
+  font-size: var(--t-md);
+  letter-spacing: 0.01em;
+  transition: transform var(--dur-rapida) var(--ease-app), filter var(--dur-rapida), background var(--dur-rapida);
+  user-select: none;
+}
+
+.boton:active {
+  transform: scale(0.96);
+}
+
+.boton svg {
+  width: 18px;
+  height: 18px;
+}
+
+.boton--primario {
+  background: var(--c-terracota-osc);
+  color: #fff;
+  box-shadow: var(--sombra-boton);
+}
+
+.boton--oscuro {
+  background: var(--c-bosque);
+  color: var(--c-base);
+}
+
+.boton--claro {
+  background: var(--c-superficie);
+  color: var(--c-terracota-osc);
+}
+
+.boton--contorno {
+  border: 1px solid var(--c-bosque);
+  color: var(--c-bosque);
+  background: transparent;
+}
+
+.boton--bloque {
+  width: 100%;
+}
+
+.boton-icono {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-full);
+  background: var(--c-superficie);
+  color: var(--c-bosque);
+  transition: transform var(--dur-rapida) var(--ease-app);
+}
+
+.boton-icono:active {
+  transform: scale(0.9);
+}
+
+.boton-icono svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ---------------------------------------------------------
+   Píldoras de filtro
+   --------------------------------------------------------- */
+.pildoras {
+  display: flex;
+  gap: var(--e-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 2px var(--margen-pantalla);
+  margin: 0 calc(var(--margen-pantalla) * -1);
+}
+
+.pildoras::-webkit-scrollbar {
+  display: none;
+}
+
+.pildora {
+  flex: 0 0 auto;
+  height: 34px;
+  padding: 0 var(--e-4);
+  border-radius: var(--r-full);
+  border: 1px solid var(--c-bosque);
+  color: var(--c-bosque);
+  font-size: var(--t-md);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background var(--dur-rapida), color var(--dur-rapida), transform var(--dur-rapida);
+}
+
+.pildora:active {
+  transform: scale(0.95);
+}
+
+.pildora.es-activa {
+  background: var(--c-bosque);
+  color: var(--c-base);
+}
+
+/* ---------------------------------------------------------
+   Etiquetas (sobre fotos o tarjetas)
+   --------------------------------------------------------- */
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: var(--r-full);
+  background: var(--c-superficie);
+  color: var(--c-texto-2);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.etiqueta svg {
+  width: 13px;
+  height: 13px;
+}
+
+.etiqueta--durazno {
+  background: var(--c-durazno);
+  color: var(--c-terracota);
+}
+
+.etiqueta--terracota {
+  background: var(--c-terracota);
+  color: #fff;
+}
+
+.etiqueta--oscura {
+  background: var(--c-bosque-80);
+  color: var(--c-base);
+}
+
+/* ---------------------------------------------------------
+   Títulos de pantalla y sección
+   --------------------------------------------------------- */
+.titulo-pantalla {
+  font-size: var(--t-3xl);
+  color: var(--c-bosque);
+  margin-bottom: var(--e-4);
+}
+
+.titulo-seccion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-3);
+  margin: var(--e-6) 0 var(--e-3);
+}
+
+.titulo-seccion h2 {
+  font-size: var(--t-xl);
+  color: var(--c-bosque);
+}
+
+.enlace-ver-todo {
+  font-size: var(--t-sm);
+  font-weight: 600;
+  color: var(--c-terracota);
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* ---------------------------------------------------------
+   Aviso emergente (toast)
+   --------------------------------------------------------- */
+.aviso {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--estado-alto) + var(--alto-encabezado) + 12px);
+  z-index: 80;
+  transform: translate(-50%, -20px);
+  opacity: 0;
+  max-width: calc(100% - 40px);
+  padding: 10px 16px;
+  border-radius: var(--r-full);
+  background: var(--c-bosque);
+  color: var(--c-base);
+  font-size: var(--t-sm);
+  font-weight: 600;
+  box-shadow: var(--sombra-tarjeta);
+  pointer-events: none;
+  transition: transform var(--dur-media) var(--ease-app), opacity var(--dur-media);
+}
+
+.aviso.es-visible {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+
+/* ---------------------------------------------------------
+   Tarjeta "en construcción" (solo etapa 1)
+   --------------------------------------------------------- */
+.en-construccion {
+  margin-top: var(--e-4);
+  padding: var(--e-6);
+  border-radius: var(--r-xl);
+  background: var(--c-superficie);
+  color: var(--c-texto-2);
+  line-height: 1.5;
+}
+
+.en-construccion strong {
+  display: block;
+  font-family: var(--f-titulos);
+  font-size: var(--t-lg);
+  color: var(--c-bosque);
+  margin-bottom: var(--e-2);
+}
+
+.esqueleto {
+  height: 140px;
+  margin-top: var(--e-3);
+  border-radius: var(--r-xl);
+  background: linear-gradient(100deg, #E6E2D3 30%, #EFECE2 50%, #E6E2D3 70%);
+  background-size: 300% 100%;
+  animation: brillo 1.6s linear infinite;
+}
+
+@keyframes brillo {
+  from { background-position: 100% 0; }
+  to   { background-position: 0 0; }
+}
+
+.boton--pequeno {
+  height: 36px;
+  padding: 0 var(--e-4);
+  font-size: var(--t-sm);
+  border-radius: var(--r-full);
+}
+
+.boton-icono--vidrio {
+  background: rgba(241, 238, 231, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.texto-terracota { color: var(--c-terracota); }
+.texto-blanco { color: #fff !important; }
+
+/* Títulos con icono a la izquierda */
+.con-icono {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-2);
+}
+.con-icono svg {
+  width: 22px;
+  height: 22px;
+  color: var(--c-terracota);
+}
+
+.enlace-ver-todo svg { width: 14px; height: 14px; }
+
+/* ---------------------------------------------------------
+   Botón de favorito (corazón)
+   --------------------------------------------------------- */
+.boton-favorito {
+  position: relative;
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-full);
+  background: var(--c-superficie);
+  color: var(--c-bosque);
+  box-shadow: 0 2px 8px rgba(18, 44, 31, 0.15);
+}
+.boton-favorito--vidrio {
+  width: 40px;
+  height: 40px;
+  background: rgba(241, 238, 231, 0.85);
+  backdrop-filter: blur(8px);
+}
+.boton-favorito svg { width: 20px; height: 20px; }
+.boton-favorito__vacio,
+.boton-favorito__lleno {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transition: opacity var(--dur-rapida), transform var(--dur-media) var(--ease-app);
+}
+.boton-favorito__lleno { opacity: 0; transform: scale(0.3); color: var(--c-terracota); }
+.boton-favorito.es-activo .boton-favorito__lleno { opacity: 1; transform: scale(1); }
+.boton-favorito.es-activo .boton-favorito__vacio { opacity: 0; }
+.boton-favorito.late { animation: latido 420ms var(--ease-app); }
+
+@keyframes latido {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+/* ---------------------------------------------------------
+   Buscador
+   --------------------------------------------------------- */
+.buscador {
+  display: flex;
+  align-items: center;
+  gap: var(--e-3);
+  height: 56px;
+  padding: 0 8px 0 18px;
+  border-radius: var(--r-full);
+  background: #B9B5A3;
+  transition: box-shadow var(--dur-rapida), background var(--dur-rapida);
+}
+.buscador:focus-within {
+  background: #C6C2B1;
+  box-shadow: 0 0 0 2px var(--c-bosque);
+}
+.buscador__icono { color: var(--c-terracota); display: grid; }
+.buscador__icono svg { width: 20px; height: 20px; }
+.buscador input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 15px;
+  color: var(--c-bosque);
+}
+.buscador input::placeholder { color: #4D5149; }
+.buscador input::-webkit-search-cancel-button { filter: grayscale(1); }
+.buscador__ajustes {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-full);
+  background: var(--c-superficie);
+  color: var(--c-bosque);
+}
+.buscador__ajustes svg { width: 20px; height: 20px; }
+
+/* Estado vacío */
+.vacio {
+  margin-top: var(--e-4);
+  padding: var(--e-6);
+  border-radius: var(--r-xl);
+  background: var(--c-superficie);
+  color: var(--c-texto-2);
+  line-height: 1.5;
+  text-align: center;
+}
+.vacio strong {
+  display: block;
+  font-family: var(--f-titulos);
+  font-size: var(--t-lg);
+  color: var(--c-bosque);
+  margin-bottom: var(--e-1);
+}
+
+/* ---------------------------------------------------------
+   Ventanas emergentes (modal)
+   --------------------------------------------------------- */
+.modal {
+  position: absolute;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: var(--e-5);
+}
+.modal--hoja { place-items: end stretch; padding: 0; }
+
+.modal__fondo {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 44, 31, 0.45);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+
+.modal__caja {
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+  max-height: 80%;
+  overflow-y: auto;
+  padding: var(--e-5);
+  border-radius: var(--r-xl);
+  background: var(--c-base);
+  box-shadow: var(--sombra-tarjeta);
+  opacity: 0;
+  transform: scale(0.92) translateY(10px);
+  transition: transform var(--dur-media) var(--ease-app), opacity 200ms ease;
+}
+
+.modal--hoja .modal__caja {
+  max-width: none;
+  max-height: 88%;
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+  padding-bottom: calc(var(--zona-inferior) + var(--e-6));
+  transform: translateY(100%);
+  opacity: 1;
+}
+
+.modal.esta-abierto .modal__fondo { opacity: 1; }
+.modal.esta-abierto .modal__caja { opacity: 1; transform: none; }
+
+.modal__asa {
+  display: block;
+  width: 36px;
+  height: 4px;
+  margin: -6px auto var(--e-3);
+  border-radius: var(--r-full);
+  background: var(--c-bosque);
+  opacity: 0.8;
+}
+
+.modal__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-3);
+  margin-bottom: var(--e-5);
+}
+
+.modal__titulo {
+  font-size: 18px;
+  color: var(--c-vino);
+}
+
+.modal__cerrar {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  color: var(--c-vino);
+}
+.modal__cerrar svg { width: 24px; height: 24px; }
+.modal__cerrar--flotante {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+}
+
+/* Lista de opciones (categorías, regiones, sabios) */
+.opciones {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-3);
+}
+
+.opcion {
+  display: flex;
+  align-items: center;
+  gap: var(--e-3);
+  min-height: 48px;
+  padding: 10px 14px;
+  border-radius: var(--r-md);
+  background: var(--c-superficie);
+  color: var(--c-texto-2);
+  font-size: 15px;
+  text-align: left;
+  transition: background var(--dur-rapida), transform var(--dur-rapida);
+}
+.opcion:active { transform: scale(0.98); }
+.opcion small {
+  margin-left: auto;
+  font-size: var(--t-sm);
+  color: var(--c-texto-3);
+}
+.opcion__icono { display: grid; color: var(--c-bosque); }
+.opcion__icono svg { width: 22px; height: 22px; }
+.opcion.es-activa {
+  background: var(--c-durazno);
+  color: var(--c-vino);
+}
+.opcion.es-activa .opcion__icono { color: var(--c-terracota); }
+
+.opcion--persona img {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-full);
+  object-fit: cover;
+}
+.opcion--persona span { display: flex; flex-direction: column; }
+.opcion--persona strong { color: var(--c-bosque); font-size: var(--t-md); }
+.opcion--persona small { margin: 0; }
+
+/* ---------------------------------------------------------
+   Marcador de mapa (Leaflet)
+   --------------------------------------------------------- */
+.marcador-runa span {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-full);
+  background: var(--c-terracota);
+  color: #fff;
+  box-shadow: 0 0 0 6px rgba(176, 60, 13, 0.25), 0 0 0 12px rgba(176, 60, 13, 0.12);
+}
+.marcador-runa svg { width: 20px; height: 20px; }
+
+/* Teselas de OpenStreetMap con tono cálido, acorde a la paleta arena */
+.teselas-runa {
+  filter: sepia(0.35) saturate(0.7) brightness(1.03) contrast(0.92);
+}
+
+/* Píldoras con icono */
+.pildora { display: inline-flex; align-items: center; gap: 6px; }
+.pildora svg { width: 16px; height: 16px; flex: 0 0 auto; }

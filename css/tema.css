@@ -1,0 +1,82 @@
+/* =========================================================
+   RUNA · Tema visual (tokens de diseño)
+   Valores tomados del archivo de Figma "Prototipo RUNA".
+   Si se migra a React Native, este archivo se traduce
+   casi 1:1 a un objeto `theme` de JS.
+   ========================================================= */
+
+:root {
+  /* ---------- Colores de marca ---------- */
+  --c-base: #DEDBCC;            /* Fondo arena (variable "Base" en Figma) */
+  --c-base-90: rgba(222, 219, 204, 0.8); /* Encabezado translúcido */
+  --c-superficie: #F1EEE7;      /* Tarjetas claras, píldoras */
+  --c-superficie-2: #F7F5EF;    /* Tarjetas muy claras */
+  --c-crema: #FCF8F1;           /* Fondo de chat / mapa */
+
+  --c-bosque: #122C1F;          /* Verde bosque (principal oscuro) */
+  --c-bosque-80: rgba(18, 44, 31, 0.8);
+  --c-bosque-claro: #284234;
+
+  --c-terracota: #B03C0D;       /* Variable "Secundario" en Figma */
+  --c-terracota-osc: #9F4216;   /* Botón principal "Ver experiencia" */
+  --c-oliva: #74715B;           /* Variable "Complementario" */
+
+  --c-durazno: #FFDBCE;         /* Etiquetas de urgencia / cupos */
+  --c-durazno-texto: #370E00;
+  --c-dorado: #F5B342;          /* Precios sobre fondo oscuro */
+  --c-vino: #6B1A0E;            /* Títulos de pop-ups */
+
+  --c-texto: #122C1F;
+  --c-texto-2: #424844;         /* Texto secundario */
+  --c-texto-3: #74796F;         /* Texto terciario / ayudas */
+  --c-borde: rgba(18, 44, 31, 0.12);
+  --c-exito: #4F7A5B;           /* Punto "en línea" */
+
+  /* ---------- Tipografía ---------- */
+  --f-titulos: 'Epilogue', system-ui, sans-serif;
+  --f-texto: 'Plus Jakarta Sans', system-ui, sans-serif;
+
+  --t-xs: 10px;
+  --t-sm: 12px;
+  --t-md: 14px;
+  --t-base: 16px;
+  --t-lg: 20px;
+  --t-xl: 24px;
+  --t-2xl: 28px;
+  --t-3xl: 32px;
+
+  /* ---------- Espaciado (múltiplos de 4) ---------- */
+  --e-1: 4px;
+  --e-2: 8px;
+  --e-3: 12px;
+  --e-4: 16px;
+  --e-5: 20px;
+  --e-6: 24px;
+  --e-8: 32px;
+  --margen-pantalla: 20px;
+
+  /* ---------- Bordes redondeados ---------- */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+  --r-2xl: 32px;
+  --r-full: 9999px;
+
+  /* ---------- Sombras ---------- */
+  --sombra-suave: 0 1px 6px rgba(40, 66, 52, 0.04);
+  --sombra-tarjeta: 0 12px 18px rgba(40, 66, 52, 0.14);
+  --sombra-nav: 0 10px 24px rgba(18, 44, 31, 0.35);
+  --sombra-boton: 0 4px 8px rgba(159, 66, 22, 0.25);
+
+  /* ---------- Medidas de la estructura ---------- */
+  --alto-encabezado: 64px;
+  --alto-nav: 72px;
+  --estado-alto: env(safe-area-inset-top, 0px); /* barra de estado real del celular */
+  --zona-inferior: env(safe-area-inset-bottom, 0px);
+
+  /* ---------- Movimiento ---------- */
+  --ease-app: cubic-bezier(0.22, 1, 0.36, 1);   /* salida suave tipo iOS */
+  --dur-rapida: 160ms;
+  --dur-media: 320ms;
+}

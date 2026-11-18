@@ -1,0 +1,291 @@
+/* =========================================================
+   RUNA · Estilos base y estructura de la app
+   - Reset mínimo
+   - Marco tipo celular en computador
+   - Encabezado, contenedor de pantallas y transiciones
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--f-texto);
+  font-size: var(--t-md);
+  color: var(--c-texto);
+  background: var(--c-base);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--f-titulos);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+/* Solo para lectores de pantalla */
+.oculto-visual {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------
+   Marco del celular
+   En el celular ocupa toda la pantalla; en computador se
+   centra dentro de un marco con bordes redondeados.
+   --------------------------------------------------------- */
+.telefono {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--c-base);
+}
+
+/* Barra de estado falsa: solo visible en el marco de computador */
+.barra-estado {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  body {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 20% 20%, #E9E5D6 0, transparent 50%),
+      radial-gradient(circle at 80% 80%, #CFCAB6 0, transparent 50%),
+      #D8D4C3;
+  }
+
+  .telefono {
+    width: 390px;
+    height: min(844px, calc(100vh - 48px));
+    border-radius: 48px;
+    border: 10px solid #1B1B1B;
+    box-shadow:
+      0 0 0 2px #3A3A3A,
+      0 40px 80px rgba(18, 44, 31, 0.35);
+    /* La barra de estado ocupa el espacio superior */
+    --estado-alto: 44px;
+  }
+
+  .barra-estado {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 44px;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px 0 36px;
+    font-family: var(--f-texto);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--c-bosque);
+    pointer-events: none;
+  }
+
+  .barra-estado__iconos {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+}
+
+/* ---------------------------------------------------------
+   Encabezado fijo: símbolo · RUNA · avatar
+   --------------------------------------------------------- */
+.encabezado {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  padding-top: var(--estado-alto);
+  background: var(--c-base-90);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--sombra-suave);
+  transition: transform var(--dur-media) var(--ease-app);
+}
+
+.encabezado__fila {
+  height: var(--alto-encabezado);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--margen-pantalla);
+}
+
+.encabezado__simbolo {
+  width: 48px;
+  height: 48px;
+}
+
+.encabezado__texto {
+  height: 26px;
+  width: auto;
+}
+
+.encabezado__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-full);
+  overflow: hidden;
+  box-shadow: 0 0 0 2px transparent;
+  transition: box-shadow var(--dur-rapida), transform var(--dur-rapida);
+}
+
+.encabezado__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.encabezado__avatar.es-activo {
+  box-shadow: 0 0 0 3px var(--c-terracota);
+}
+
+/* ---------------------------------------------------------
+   Contenedor de pantallas (vistas)
+   Cada pantalla es una capa que se desliza o aparece.
+   --------------------------------------------------------- */
+.vistas {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.pantalla {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  background: var(--c-base);
+  padding-top: calc(var(--estado-alto) + var(--alto-encabezado) + var(--e-2));
+  padding-bottom: calc(var(--alto-nav) + var(--zona-inferior) + 40px);
+  will-change: transform, opacity;
+}
+
+.pantalla::-webkit-scrollbar {
+  display: none;
+}
+
+/* Pantallas sin barra inferior (por ejemplo, el chat) */
+.pantalla--sin-nav {
+  padding-bottom: calc(var(--zona-inferior) + var(--e-4));
+}
+
+.contenido {
+  padding: 0 var(--margen-pantalla);
+}
+
+/* ---------- Transiciones entre pantallas ---------- */
+
+/* Entrar desde la derecha (ir más profundo: detalle, chat…) */
+.anim-entrar-adelante {
+  animation: entrarAdelante var(--dur-media) var(--ease-app) both;
+}
+.anim-salir-adelante {
+  animation: salirAdelante var(--dur-media) var(--ease-app) both;
+}
+
+/* Volver atrás */
+.anim-entrar-atras {
+  animation: entrarAtras var(--dur-media) var(--ease-app) both;
+}
+.anim-salir-atras {
+  animation: salirAtras var(--dur-media) var(--ease-app) both;
+  z-index: 2;
+}
+
+/* Cambiar de pestaña: fundido con leve desplazamiento */
+.anim-entrar-pestana {
+  animation: entrarPestana var(--dur-media) var(--ease-app) both;
+}
+.anim-salir-pestana {
+  animation: salirPestana var(--dur-rapida) ease-out both;
+}
+
+@keyframes entrarAdelante {
+  from { transform: translateX(100%); box-shadow: -20px 0 40px rgba(18, 44, 31, 0.15); }
+  to   { transform: translateX(0);    box-shadow: -20px 0 40px rgba(18, 44, 31, 0); }
+}
+@keyframes salirAdelante {
+  from { transform: translateX(0);    opacity: 1; }
+  to   { transform: translateX(-28%); opacity: 0.6; }
+}
+@keyframes entrarAtras {
+  from { transform: translateX(-28%); opacity: 0.6; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes salirAtras {
+  from { transform: translateX(0); }
+  to   { transform: translateX(100%); }
+}
+@keyframes entrarPestana {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes salirPestana {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* Aparición escalonada de elementos dentro de una pantalla */
+.aparecer {
+  animation: entrarPestana 420ms var(--ease-app) both;
+  animation-delay: calc(var(--i, 0) * 50ms);
+}
+
+/* Respeta a quien prefiere menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}
